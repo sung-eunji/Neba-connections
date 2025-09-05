@@ -6,6 +6,10 @@ import Section4 from '@/components/Section4';
 import Section5 from '@/components/Section5';
 import Section6 from '@/components/Section6';
 import Section7 from '@/components/Section7';
+import Section8 from '@/components/Section8';
+import Section9 from '@/components/Section9';
+import Section10 from '@/components/Section10';
+import Section11 from '@/components/Section11';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -19,7 +23,11 @@ export default function Home() {
       <Section5 />
       <Section6 />
       <Section7 />
-      {/* 여기에 섹션 8-11이 추가될 예정입니다 */}
+      <Section8 />
+      <Section9 />
+      <Section10 />
+      <Section11 />
+      {/* 모든 섹션이 완성되었습니다 */}
       <Footer />
     </main>
   );
