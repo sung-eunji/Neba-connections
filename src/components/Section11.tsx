@@ -45,17 +45,8 @@ export default function Section11() {
   ];
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen py-16 px-4 bg-white"
-    >
-      <div className="text-start mb-16 pl-10">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 font-montserrat">
-          THANK YOU
-        </h2>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative">
+    <section ref={sectionRef} className="relative min-h-screen  bg-white">
+      <div className="relative w-full h-[80vh]">
         {/* 배경 월드맵 이미지 */}
         <div
           className={`absolute inset-0 transition-opacity duration-2000 ease-out ${
@@ -73,39 +64,39 @@ export default function Section11() {
         </div>
 
         {/* 연락처 정보 카드들 */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {contactInfo.map((info, index) => (
-            <div
-              key={index}
-              className={`bg-white border border-blue-200 rounded-lg shadow-lg p-6 transition-all duration-1000 ease-out ${
-                isVisible
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-20'
-              }`}
-              style={{ transitionDelay: info.delay }}
-            >
-              <div className="text-center">
-                <div className="text-3xl mb-4">{info.icon}</div>
-                <h3 className="text-lg font-bold text-gray-800 mb-3 font-montserrat">
-                  {info.title}
-                </h3>
-                <div className="space-y-1">
-                  {info.details.map((detail, detailIndex) => (
-                    <p
-                      key={detailIndex}
-                      className="text-sm text-gray-600 font-open-sans"
-                    >
-                      {detail}
-                    </p>
-                  ))}
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
+            {contactInfo.map((info, index) => (
+              <div
+                key={index}
+                className={`bg-white border border-blue-200 rounded-lg shadow-lg p-6 transition-all duration-1000 ease-out ${
+                  isVisible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-20'
+                }`}
+                style={{ transitionDelay: info.delay }}
+              >
+                <div className="text-center">
+                  <div className="text-3xl mb-4">{info.icon}</div>
+                  <h3 className="text-lg font-bold text-gray-800 mb-3 font-montserrat">
+                    {info.title}
+                  </h3>
+                  <div className="space-y-1">
+                    {info.details.map((detail, detailIndex) => (
+                      <p
+                        key={detailIndex}
+                        className="text-sm text-gray-600 font-open-sans"
+                      >
+                        {detail}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
-

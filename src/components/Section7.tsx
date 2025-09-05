@@ -49,11 +49,11 @@ export default function Section7() {
       ref={sectionRef}
       className="relative min-h-screen py-16 px-4 bg-white"
     >
-      <div className="text-start mb-16 pl-10">
+      <div className="text-start mb-[8rem] pl-10">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 font-montserrat">
           Partnerships
         </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto font-open-sans ">
+        <p className="text-xl text-gray-600 max-w-3xl font-open-sans text-start">
           Proven growth partner for fashion platforms and wholesalers
         </p>
       </div>
@@ -61,7 +61,7 @@ export default function Section7() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {partnershipItems.map((item, index) => (
-            <div key={index} className="flex flex-col items-center">
+            <div key={index} className="flex flex-col items-start">
               {/* 이미지 컨테이너 - 위에서 내려오는 애니메이션 */}
               <div
                 className={`relative mb-6 transition-all duration-1000 ease-out ${
@@ -77,7 +77,7 @@ export default function Section7() {
                     alt={item.title}
                     width={300}
                     height={300}
-                    className="w-full h-auto rounded-lg shadow-lg"
+                    className="w-full h-64 object-cover rounded-lg shadow-lg"
                   />
                   {/* 아이콘 오버레이 */}
                   <div
@@ -103,7 +103,9 @@ export default function Section7() {
                 }`}
                 style={{ transitionDelay: `${index * 0.3 + 0.15}s` }}
               >
-                <div className={`${item.bgColor} text-white p-6  shadow-lg`}>
+                <div
+                  className={`${item.bgColor} text-white p-6 h-48 flex flex-col justify-between shadow-lg`}
+                >
                   <h3 className="text-lg font-bold mb-3 font-montserrat">
                     {item.title}
                   </h3>

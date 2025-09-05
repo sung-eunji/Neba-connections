@@ -34,9 +34,9 @@ export default function Footer() {
               Connecting Fashion Possibilities to Markets Worldwide
             </p>
             <div className="space-y-2 text-gray-300">
-              <p>📍 Address: Your Company Address</p>
-              <p>📞 Phone: +1 (555) 123-4567</p>
-              <p>🌐 Website: www.neba.com</p>
+              <p>📍 Address: 162 Bd Rabatau Daniel Matalon,13010</p>
+              <p>📞 Phone: +33) 7 83 00 79 52</p>
+              <p>🌐 Website: www.neba-connections.net</p>
             </div>
           </div>
 

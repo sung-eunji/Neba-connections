@@ -43,7 +43,7 @@ export default function Section10() {
       ref={sectionRef}
       className="relative min-h-screen py-16 px-4 bg-gray-50"
     >
-      <div className="text-start mb-16 pl-10">
+      <div className="text-start mb-36 pl-10">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 font-montserrat">
           OUR TEAM
         </h2>
@@ -66,13 +66,13 @@ export default function Section10() {
             >
               {/* 프로필 이미지 */}
               <div className="relative mb-6">
-                <div className="w-64 h-64 mx-auto rounded-lg overflow-hidden shadow-lg">
+                <div className="w-64 h-80 mx-auto rounded-lg overflow-hidden shadow-lg">
                   <Image
                     src={member.image}
                     alt={member.name}
                     width={256}
-                    height={256}
-                    className="w-full h-full object-cover"
+                    height={320}
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </div>
@@ -91,5 +91,3 @@ export default function Section10() {
     </section>
   );
 }
-
-

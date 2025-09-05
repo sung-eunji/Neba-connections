@@ -9,7 +9,7 @@ import Section7 from '@/components/Section7';
 import Section8 from '@/components/Section8';
 import Section9 from '@/components/Section9';
 import Section10 from '@/components/Section10';
-import Section11 from '@/components/Section11';
+//import Section11 from '@/components/Section11';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
       <Section8 />
       <Section9 />
       <Section10 />
-      <Section11 />
+      {/* <Section11 /> */}
       {/* 모든 섹션이 완성되었습니다 */}
       <Footer />
     </main>
