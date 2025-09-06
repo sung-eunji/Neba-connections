@@ -47,7 +47,7 @@ export default function Section7() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen py-16 px-4 bg-white"
+      className="relative min-h-screen py-16 px-4 bg-white snap-start"
     >
       <div className="text-start mb-[8rem] pl-10">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 font-montserrat">

@@ -30,7 +30,7 @@ export default function Section1() {
     <div className="pt-16 ">
       <section
         ref={sectionRef}
-        className="relative min-h-[100vh] flex items-center justify-center overflow-hidden bg-slate-700"
+        className="relative min-h-[100vh] flex items-center justify-center overflow-hidden bg-slate-700 snap-start w-full"
       >
         {/* 물결 배경 */}
         <div className="absolute inset-0 z-1">

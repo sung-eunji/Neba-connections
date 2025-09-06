@@ -55,7 +55,7 @@ export default function Section4() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen py-16 px-4 bg-white"
+      className="relative min-h-screen py-16 px-4 bg-white snap-start"
     >
       {/* 제목 */}
       <div className="text-start mb-16 pl-10">

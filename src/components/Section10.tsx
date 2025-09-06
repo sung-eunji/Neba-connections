@@ -41,7 +41,7 @@ export default function Section10() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen py-16 px-4 bg-gray-50"
+      className="relative min-h-screen py-16 px-4 bg-gray-50 snap-start"
     >
       <div className="text-start mb-36 pl-10">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 font-montserrat">

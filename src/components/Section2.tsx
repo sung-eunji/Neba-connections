@@ -29,7 +29,7 @@ export default function Section2() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[80vh] flex items-center overflow-hidden"
+      className="relative min-h-[80vh] flex items-center overflow-hidden snap-start"
     >
       {/* 배경 이미지 */}
       <div className="absolute inset-0 z-0">

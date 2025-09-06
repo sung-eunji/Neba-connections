@@ -45,7 +45,10 @@ export default function Section11() {
   ];
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen  bg-white">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[100vh] bg-white snap-start"
+    >
       <div className="relative w-full h-[80vh]">
         {/* 배경 월드맵 이미지 */}
         <div

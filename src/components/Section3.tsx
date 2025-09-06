@@ -56,7 +56,7 @@ export default function Section3() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[80vh] flex flex-col justify-center items-start py-16 px-4 bg-white"
+      className="relative min-h-[100vh] flex flex-col justify-center items-start py-16 px-4 bg-white snap-start"
     >
       {/* 제목과 부제목 */}
       <div className="text-start mb-16 pl-10">

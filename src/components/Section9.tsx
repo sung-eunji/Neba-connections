@@ -20,9 +20,9 @@ export default function Section9() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen py-16 px-4 bg-white"
+      className="relative min-h-[100vh] py-16 px-4 bg-white snap-start"
     >
-      <div className="text-start mb-16 pl-10">
+      <div className="text-start mb-30 pl-10">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 font-montserrat">
           Our Mission
         </h2>
@@ -31,9 +31,9 @@ export default function Section9() {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* 상단 이미지들 - 왼쪽에서 오른쪽으로 나타나는 애니메이션 */}
-        <div className="grid grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-3 gap-4 mb-8">
           <div
             className={`transition-all duration-1000 ease-out ${
               isVisible
@@ -45,9 +45,9 @@ export default function Section9() {
             <Image
               src="/section9/section9.png"
               alt="Fashion item 1"
-              width={400}
-              height={400}
-              className="w-full h-auto rounded-lg shadow-lg"
+              width={300}
+              height={200}
+              className="w-full h-48 object-cover rounded-lg shadow-lg"
             />
           </div>
           <div
@@ -61,9 +61,9 @@ export default function Section9() {
             <Image
               src="/section9/section9-1.png"
               alt="Fashion item 2"
-              width={400}
-              height={400}
-              className="w-full h-auto rounded-lg shadow-lg"
+              width={300}
+              height={200}
+              className="w-full h-48 object-cover rounded-lg shadow-lg"
             />
           </div>
           <div
@@ -77,15 +77,15 @@ export default function Section9() {
             <Image
               src="/section9/section9-2.png"
               alt="Fashion item 3"
-              width={400}
-              height={400}
-              className="w-full h-auto rounded-lg shadow-lg"
+              width={300}
+              height={200}
+              className="w-full h-48 object-cover rounded-lg shadow-lg"
             />
           </div>
         </div>
 
         {/* 하단 이미지들과 텍스트박스 - 아래서 위로 나타나는 애니메이션 */}
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-4">
           <div
             className={`transition-all duration-1000 ease-out ${
               isVisible
@@ -97,9 +97,9 @@ export default function Section9() {
             <Image
               src="/section9/section9-3.png"
               alt="Fashion item 4"
-              width={400}
-              height={400}
-              className="w-full h-auto rounded-lg shadow-lg"
+              width={300}
+              height={200}
+              className="w-full h-48 object-cover rounded-lg shadow-lg"
             />
           </div>
 
@@ -112,14 +112,14 @@ export default function Section9() {
             }`}
             style={{ transitionDelay: '1.0s' }}
           >
-            <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-8 rounded-lg shadow-lg h-full flex flex-col justify-center">
-              <h3 className="text-2xl font-bold mb-4 font-montserrat">
+            <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-lg shadow-lg h-48 flex flex-col justify-center">
+              <h3 className="text-xl font-bold mb-3 font-montserrat">
                 Our mission:
               </h3>
-              <p className="text-lg mb-6 font-open-sans">
+              <p className="text-base mb-4 font-open-sans">
                 Connecting fashion possibilities to markets worldwide.
               </p>
-              <ul className="space-y-2 text-sm font-open-sans">
+              <ul className="space-y-1 text-sm font-open-sans">
                 <li>• Fashion-forward</li>
                 <li>• High-quality</li>
                 <li>• Competitively priced</li>
@@ -138,9 +138,9 @@ export default function Section9() {
             <Image
               src="/section9/section9-4.png"
               alt="Fashion item 5"
-              width={400}
-              height={400}
-              className="w-full h-auto rounded-lg shadow-lg"
+              width={300}
+              height={200}
+              className="w-full h-48 object-cover rounded-lg shadow-lg"
             />
           </div>
         </div>
@@ -148,5 +148,3 @@ export default function Section9() {
     </section>
   );
 }
-
-
