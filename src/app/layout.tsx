@@ -26,6 +26,9 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: 'Neba. - Connecting Fashion Possibilities to Markets Worldwide',
   description: 'Neba. - Connecting Fashion Possibilities to Markets Worldwide',
+  icons: {
+    icon: '/nebaN1.png',
+  },
 };
 
 export default function RootLayout({
