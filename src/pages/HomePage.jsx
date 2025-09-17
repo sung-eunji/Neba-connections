@@ -3,10 +3,11 @@
  * It showcases Neba's mission, differentiators, global reach, and core values with world-class design and accessibility.
  * All interactive elements provide clear feedback and smooth navigation throughout the user journey.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/common/Button';
 import { RfqModal } from '../components/RfqModal';
+import { supabase } from '../libs/supabase';
 import {
   Globe,
   Users,
@@ -123,6 +124,61 @@ export const HomePage = () => {
     },
   ];
 
+  // Featured products pulled from Products page data source
+  const featuredNumbers = ['FJ-4066', 'FJ-5049', 'FJ-4080', 'FJ-4070'];
+  const [featuredProducts, setFeaturedProducts] = useState(
+    featuredNumbers.map((num) => ({
+      productNo: num,
+      name: `Neba Connections ${num}`,
+      image: null,
+      description: '',
+      brand: 'Neba Connections',
+    }))
+  );
+
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select(
+            'id, product_number, color, size, fabrics, tags, main_photo, photos'
+          )
+          .in('product_number', featuredNumbers);
+
+        if (error) throw error;
+
+        const orderMap = featuredNumbers.reduce((acc, val, idx) => {
+          acc[val] = idx;
+          return acc;
+        }, {});
+
+        const mapped = (data || []).map((row) => {
+          const tags = Array.isArray(row.tags) ? row.tags : [];
+          const fabrics = Array.isArray(row.fabrics) ? row.fabrics : [];
+          const photos = Array.isArray(row.photos) ? row.photos : [];
+          return {
+            productNo: row.product_number,
+            name: `Neba Connections ${row.product_number}`,
+            image: row.main_photo || photos[0] || null,
+            description: tags.join(', '),
+            brand: 'Neba Connections',
+          };
+        });
+
+        if (mapped.length > 0) {
+          mapped.sort((a, b) => orderMap[a.productNo] - orderMap[b.productNo]);
+          setFeaturedProducts(mapped);
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch featured products:', err);
+      }
+    };
+
+    fetchFeatured();
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -130,7 +186,7 @@ export const HomePage = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1542728143-d9b537db6433?w=1920&h=1080&fit=crop&crop=center"
+            src="/logo/NC-logo.png"
             alt="Premium denim fabric background"
             className="w-full h-full object-cover"
             loading="eager"
@@ -352,71 +408,15 @@ export const HomePage = () => {
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-6">
               Featured Collections
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
               Discover our premium products crafted with innovation, quality,
-              and style. From classic denim to empowering fashion statements
-              that celebrate your authentic self.
+              and style. <br /> From classic denim to empowering fashion
+              statements that celebrate your authentic self.
             </p>
           </div>
 
-          {/* Brand Tabs */}
-          <div className="flex flex-wrap justify-center mb-12 gap-4">
-            <button className="px-6 py-3 rounded-full font-bold text-white bg-secondary hover:bg-blue-600 shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-              All Collections
-            </button>
-            <button className="px-6 py-3 rounded-full font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-              Neba Denim
-            </button>
-            <button className="px-6 py-3 rounded-full font-bold text-white bg-gradient-to-r from-rose-500 to-fuchsia-600 hover:from-rose-600 hover:to-fuchsia-700 shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2">
-              Neba Connections Collection
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-            {[
-              {
-                name: 'Premium Blue Denim Classic',
-                image:
-                  'https://heyboss.heeyo.ai/1757502077-89c6e053-m.media-amazon.com-images-I-91qtVGJ0t2L.-UF350350-QL80-.jpg',
-                productNo: 'FJ-4083',
-                description: 'Premium quality comfort fit',
-                brand: 'Neba',
-              },
-              {
-                name: 'Stylish Fashion Forward Denim',
-                image:
-                  'https://heyboss.heeyo.ai/1757502076-0e947d91-media.voguearabia.com-photos-677779e6f53e11c914eba5ed-2-3-w-2560-2Cc-limit-GettyImages-2173411123.jpg',
-                productNo: 'FJ-4084',
-                description: 'Trendy design with comfort stretch',
-                brand: 'Neba',
-              },
-              {
-                name: 'Neba Connections Traveler Denim',
-                image: 'https://heyboss.heeyo.ai/1757842800-69f00b0e.webp',
-                productNo: 'SL-2301',
-                description: 'Bold expression for authentic style',
-                brand: 'Neba Connections',
-                logo: 'https://heyboss.heeyo.ai/user-assets/IMG_2210_i9ugHBk3.jpg',
-                badge: 'Empowering',
-              },
-              {
-                name: 'Vintage Faded Denim',
-                image:
-                  'https://heyboss.heeyo.ai/1757502077-406e9284-denimhunters.com-wp-content-uploads-Heavy-Faded-Selvedge-33-oz-Old-Blue-Chuck-Stockstrom-Indigo-Invitational-Y3.jpg',
-                productNo: 'FJ-4086',
-                description: 'Authentic vintage wash retro style',
-                brand: 'Neba',
-              },
-              {
-                name: 'Neba Connections Explorer Edition',
-                image: 'https://heyboss.heeyo.ai/1757842800-dc098da5.webp',
-                productNo: 'SL-2205',
-                description: 'Evolving smart fashion with soul',
-                brand: 'Neba Connections',
-                logo: 'https://heyboss.heeyo.ai/user-assets/IMG_2210_i9ugHBk3.jpg',
-                badge: 'Trendy Chic',
-              },
-            ].map((product, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            {featuredProducts.map((product, index) => (
               <div
                 key={index}
                 className="group cursor-pointer"
@@ -425,7 +425,10 @@ export const HomePage = () => {
                 <div className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
                   <div className="aspect-[3/4] overflow-hidden">
                     <img
-                      src={product.image}
+                      src={
+                        product.image ||
+                        'https://heyboss.heeyo.ai/1757842800-69f00b0e.webp'
+                      }
                       alt={`${product.name} - ${product.description} from ${product.brand} Collection`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       loading="lazy"
@@ -516,9 +519,9 @@ export const HomePage = () => {
               <div className="bg-white rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:-translate-y-2">
                 <div className="text-center mb-6">
                   <img
-                    src="https://heyboss.heeyo.ai/user-assets/Brand%20initial%20Simple%20Logo_mgafQ8wt.png"
+                    src="/logo/NC-logo.png"
                     alt="Neba Brand Logo"
-                    className="h-16 w-auto mx-auto mb-4"
+                    className="h-24 w-auto mx-auto mb-4"
                   />
                   <h3 className="text-2xl font-heading font-bold text-primary mb-3">
                     Neba Collection
@@ -548,9 +551,9 @@ export const HomePage = () => {
               <div className="bg-gradient-to-br from-rose-50 to-fuchsia-50 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:-translate-y-2 border-2 border-rose-200">
                 <div className="text-center mb-6">
                   <img
-                    src="https://heyboss.heeyo.ai/user-assets/IMG_2210_i9ugHBk3.jpg"
+                    src="/logo/NC-logo.png"
                     alt="Seoulline Brand Logo - Fashion Empowerment Brand"
-                    className="h-16 w-auto mx-auto mb-4 bg-white rounded-lg p-2 shadow-md"
+                    className="h-24 w-auto mx-auto mb-4 bg-white rounded-lg p-2 shadow-md"
                   />
                   <h3 className="text-2xl font-heading font-bold text-fuchsia-800 mb-3">
                     Neba Connections Collection
@@ -586,7 +589,7 @@ export const HomePage = () => {
             <div className="lg:col-span-5 relative">
               <div className="relative mx-auto max-w-md">
                 <img
-                  src="https://heyboss.heeyo.ai/1757842800-42cdbf09.webp"
+                  src="/products/tenceljean.gif"
                   alt="Neba Connections fashion model - Confident traveler with soul and style"
                   className="w-full h-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-700"
                   loading="lazy"
@@ -605,11 +608,6 @@ export const HomePage = () => {
             <div className="lg:col-span-7 text-white space-y-8">
               <div>
                 <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 bg-gradient-to-r from-rose-300 via-fuchsia-200 to-indigo-200 text-transparent bg-clip-text">
-                  <img
-                    src="/logo/séoulienne_logo.svg"
-                    alt="Neba Connections"
-                    className="w-[12rem] h-15 invert"
-                  />
                   Fashion as Empowerment
                 </h2>
                 <p className="text-xl text-purple-100 leading-relaxed mb-8 max-w-2xl">
