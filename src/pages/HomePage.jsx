@@ -186,7 +186,7 @@ export const HomePage = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
-            src="/logo/NC-logo.png"
+            src="https://images.unsplash.com/photo-1542728143-d9b537db6433?w=1920&h=1080&fit=crop&crop=center"
             alt="Premium denim fabric background"
             className="w-full h-full object-cover"
             loading="eager"
@@ -196,18 +196,9 @@ export const HomePage = () => {
 
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-          {/* Logo */}
-          <div className="mb-12 animate-fade-in">
-            <img
-              src="https://heyboss.heeyo.ai/user-assets/Brand%20initial%20Simple%20Logo_mgafQ8wt.png"
-              alt="Neba Connections - Global Fashion Distribution Leader"
-              className="h-24 md:h-32 lg:h-40 w-auto mx-auto mb-8"
-            />
-          </div>
-
           {/* Headlines */}
           <div className="mb-12 animate-slide-up">
-            <h1 className="text-responsive-4xl md:text-responsive-5xl font-heading font-bold text-white mb-8 leading-tight">
+            <h1 className="text-responsive-3xl md:text-responsive-5xl font-heading font-bold text-white mb-8 leading-tight">
               Connecting Fashion
               <span className="block text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text">
                 Possibilities
@@ -304,7 +295,7 @@ export const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-6">
-              Why Choose Neba
+              Why Choose <span className="font-extrabold">Neba</span>
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Our commitment to excellence, innovation, and partnership sets us
