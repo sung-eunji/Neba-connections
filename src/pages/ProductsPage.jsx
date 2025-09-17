@@ -3,7 +3,7 @@
  * It displays the product catalog with filtering options for category, fabric, color, size, and length.
  * Each product card includes an RFQ button that opens the quote request modal with pre-filled product information.
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Button } from '../components/common/Button';
 import { RfqModal } from '../components/RfqModal';
 import { ProductImageModal } from '../components/ProductImageModal';
@@ -20,6 +20,49 @@ export const ProductsPage = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+
+  // Canonicalize feature tags to a unified key set
+  const canonicalizeFeature = (raw) => {
+    if (!raw) return null;
+    const key = String(raw)
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_|_$/g, '');
+
+    // Synonym map -> canonical key
+    const map = {
+      ykk: 'authentic_ykk',
+      ykk_zipper: 'authentic_ykk',
+      authentic_ykk: 'authentic_ykk',
+
+      korean_design: 'korean_design_craftsmanship',
+      korean_craftsmanship: 'korean_design_craftsmanship',
+      korean_design_craftsmanship: 'korean_design_craftsmanship',
+
+      eco_friendly_fabric: 'eco_friendly_fabric',
+      excellent_drying: 'excellent_drying',
+      elastic_waistband: 'elastic_waistband',
+      moisture_absorption: 'moisture_absorption',
+      heritage_design: 'heritage_design',
+      urban_style: 'urban_style',
+      premium_quality: 'premium_quality',
+
+      // Keep existing unique ones as-is by default below
+    };
+
+    return map[key] || key;
+  };
+
+  const canonicalizeFeatureList = (list) => {
+    const arr = Array.isArray(list) ? list : [];
+    const set = new Set();
+    for (const item of arr) {
+      const c = canonicalizeFeature(item);
+      if (c) set.add(c);
+    }
+    return Array.from(set);
+  };
   const localProducts = [
     {
       id: 1,
@@ -146,7 +189,15 @@ export const ProductsPage = () => {
       brand: 'Neba Connections',
     },
   ];
-  const [products, setProducts] = useState(localProducts);
+  const normalizedLocalProducts = useMemo(
+    () =>
+      (localProducts || []).map((p) => ({
+        ...p,
+        features: canonicalizeFeatureList(p.features),
+      })),
+    []
+  );
+  const [products, setProducts] = useState(normalizedLocalProducts);
   const [isUsingFallback, setIsUsingFallback] = useState(true);
 
   // Filter states
@@ -185,7 +236,7 @@ export const ProductsPage = () => {
           const photos = Array.isArray(row.photos) ? row.photos : [];
 
           const brand = 'Neba Connections';
-          const nonBrandFeatures = tags;
+          const nonBrandFeatures = canonicalizeFeatureList(tags);
 
           return {
             id: row.id,
@@ -251,21 +302,27 @@ export const ProductsPage = () => {
       'Cotton 95%, Spandex 5%',
     ],
     lengths: ['Basic', 'Long(LO)', 'Short(SH)'],
-    features: [
-      'eco_friendly_fabric',
-      'inner_banding',
-      'excellent_drying',
-      'ykk_zipper',
-      'elastic_waistband',
-      'authentic_ykk',
-      'moisture_absorption',
-      'korean_design',
-      'korean_craftsmanship',
-      'heritage_design',
-      'urban_style',
-      'premium_quality',
-    ],
+    // features now computed dynamically below
+    features: [],
   };
+
+  // Compute dynamic feature list based on current products and exclude universal tags
+  const availableFeatures = useMemo(() => {
+    const counts = new Map();
+    for (const p of products) {
+      const feats = Array.isArray(p.features) ? p.features : [];
+      for (const f of feats) counts.set(f, (counts.get(f) || 0) + 1);
+    }
+    const total = products.length || 0;
+    const result = [];
+    for (const [f, cnt] of counts.entries()) {
+      // Exclude features present on all items (universal) from filter UI
+      if (total > 0 && cnt === total) continue;
+      result.push(f);
+    }
+    // Prefer stable, readable order
+    return result.sort((a, b) => a.localeCompare(b));
+  }, [products]);
 
   const handleRequestQuote = (product) => {
     setSelectedProduct(`${product.productNo} - ${product.name}`);
@@ -530,13 +587,13 @@ export const ProductsPage = () => {
                   </div>
                 </div>
 
-                {/* Features */}
+                {/* Features (dynamic, canonicalized, non-universal) */}
                 <div>
                   <h4 className="text-sm font-medium text-gray-900 mb-3">
                     Features
                   </h4>
                   <div className="space-y-2">
-                    {filterCategories.features.map((feature) => (
+                    {availableFeatures.map((feature) => (
                       <label key={feature} className="flex items-center">
                         <input
                           type="checkbox"
